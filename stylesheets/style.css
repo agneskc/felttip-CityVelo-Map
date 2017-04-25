@@ -1,0 +1,151 @@
+@charset "utf-8";
+
+body {
+	font: 15px Tahoma, sans-serif;
+	font-weight: 300;
+}
+
+h1 {
+	font-weight: 300;
+}
+
+#map {
+	height: 98vh;
+	border: 1px solid gray;
+}
+
+#text {
+	float: right;
+	position: relative;
+	top: -90px;
+	right: 10px;
+	width: 180px;
+	padding: 0px 8px;
+	background: #3876a1;
+	opacity: 0.9;
+	text-align: right;
+	color: #ffd3ae;
+	font-weight: 500;
+}
+
+#text p {
+
+}
+
+.leaflet-div-icon {
+	background: blue;
+	line-height: 0px;
+	font-size: inherit;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-icon-00 {
+	background: #666;
+	line-height: 0px;
+	font-size: inherit;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-largeIcon-00 {
+	background: #666;
+	line-height: 30px;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+.leaflet-div-largeIcon {
+	background: blue;
+	line-height: 30px;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-largeIcon-00 {
+	background: #666;
+	line-height: 30px;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-medIcon {
+	background: blue;
+	line-height: 20px;
+	font-size: 12px;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-medIcon-00 {
+	background: #666;
+	line-height: 20px;
+	font-size: 12px;	
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-smallIcon {
+	background: blue;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}
+
+.leaflet-div-smallIcon-00 {
+	background: #666;
+	border: none;
+	white-space: nowrap;
+	color: white;
+	font-weight: 400;
+	border-radius: 50%;
+	opacity: 0.6;
+	display: block;
+	text-align: center;
+}

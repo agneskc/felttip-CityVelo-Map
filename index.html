@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+{% autoescape true %}
+
+<html>
+	<head>
+		<title>My Map</title>
+		<description></description>
+		<link type="text/css" rel="stylesheet" href="/stylesheets/leaflet.css" />
+		<link type="text/css" rel="stylesheet" href="/stylesheets/style.css" />
+		
+		<script type="text/javascript" src="/static/leaflet.js"></script> 
+		<script type="text/javascript" src="/static/jquery-1.12.0.min.js"></script>
+	</head>
+	
+	<body>
+				
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.mapbox.css' rel='stylesheet' />
+		<!--[if lt IE 9]>
+		  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.ie.css' rel='stylesheet' />
+		<![endif]-->
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/css/font-awesome.min.css' rel='stylesheet' />
+		
+		<div id="map"></div>
+		
+		<div id="text">
+			
+			<p>Updated as of {{ time_stamp }}</p>
+			
+	<!--	<h3>Stations</h3>		
+			{% for station in stations %}
+			<p>{{ station }}</p>
+			{% endfor %}
+	-->
+		</div>
+
+						
+		<script type="text/javascript" src="/static/map.js"></script>
+		
+		<script>
+			
+			{% for station in stations %}
+			
+			var availableBikes = {{ station['availableBikes'] }}
+			var availableDocks = {{ station['availableDocks'] }}
+			
+			// Show bikes or docks available if there are less than 10 of either at a station. for Large Icons only.
+			function bikeDockAvailabilityLarge(availableBikes, availableDocks) {
+				if (availableBikes < 10) {
+					return availableBikes + " B";
+				} else if (availableDocks < 10) {
+					return availableDocks + " D";
+				} else {
+					return "";
+				}
+			}; 
+
+			// Show bikes or docks available if there are less than 10 of either at a station. for Med Icons only.
+			function bikeDockAvailabilityMed(availableBikes, availableDocks) {
+				if (availableBikes < 10) {
+					return availableBikes;
+				} else if (availableDocks < 10) {
+					return availableDocks;
+				} else {
+					return "";
+				}
+			}; 
+			
+			// CSS styles for large/medium/small icons for stations, including stations that have 0 bikes/docks.
+			
+			// new, more efficient function? 
+			// http://stackoverflow.com/questions/7125453/modifying-css-class-property-values-on-the-fly-with-javascript-jquery
+			// http://stackoverflow.com/questions/19353331/getting-or-changing-css-class-property-with-javascript-using-dom-style
+			// function className(availableBikes, availableDocks) {
+			// 		if (availableBikes == 0 && availableDocks == 0) {
+			//			document.getElementsByClassName('leaflet-div-icon').style.backgroundColor
+			
+			function classNameLargeIcon(availableBikes, availableDocks) {
+				if (availableBikes == 0 && availableDocks == 0) {
+					return 'leaflet-div-largeIcon-00';
+				} else {
+					return 'leaflet-div-largeIcon';
+				}
+			};
+			
+			function classNameMedIcon(availableBikes, availableDocks) {
+				if (availableBikes == 0 && availableDocks == 0) {
+					return 'leaflet-div-medIcon-00';
+				} else {
+					return 'leaflet-div-medIcon';
+				}
+			};
+			
+			function classNameSmallIcon(availableBikes, availableDocks) {
+				if (availableBikes == 0 && availableDocks == 0) {
+					return 'leaflet-div-smallIcon-00';
+				} else {
+					return 'leaflet-div-smallIcon';
+				}
+			};
+			
+			// Icon styles: Customized icon sizes and what data is shown.
+			var smallIcon = L.divIcon({
+				className: classNameSmallIcon(availableBikes, availableDocks),
+				iconSize: [5, 5],
+			});
+			
+			var medIcon = L.divIcon({
+				html: bikeDockAvailabilityMed(availableBikes, availableDocks),
+				className: classNameMedIcon(availableBikes, availableDocks),
+				iconSize: [20, 20],
+			});
+			
+			var largeIcon = L.divIcon({
+				html: bikeDockAvailabilityLarge(availableBikes, availableDocks),
+				className: classNameLargeIcon(availableBikes, availableDocks),
+				iconSize: [30, 30],
+			});
+
+//			// Based on zoom levels, show specific icon styles. 
+//			function customIconSize() {
+//				var currentZoom = map.getZoom();
+//				if (currentZoom <= 13) {
+//					return smallIcon;
+//				} else if (currentZoom > 15) {
+//					return largeIcon;
+//				} else {
+//					return medIcon;
+//				}
+//			};
+
+			// Add markers to the map based on lat/long.
+			L.marker(
+				[{{ station['latitude'] }}, {{ station['longitude'] }}],
+				{ icon: largeIcon }
+			).addTo(map);
+
+//			map.on('zoomend', function() {			
+//				L.marker(
+//					[{{ station['latitude'] }}, {{ station['longitude'] }}],
+//					{ icon: customIconSize() }
+//				).addTo(map);
+//			});
+			
+			{% endfor %}
+			
+		</script>
+		
+	</body>
+</html>
+
+{% endautoescape %}  
